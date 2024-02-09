@@ -6,7 +6,7 @@ const mysql = require("mysql2");
 app.use(Morgan("dev"));
 app.get("/", (req, res) => {
   const connection = mysql.createConnection({
-    host: process.env.DB_HOST || "mysql",
+    host: process.env.DB_HOST || "mysql.default.svc.cluster.local",
     user: process.env.DB_USER || "root",
     password: process.env.MYSQL_ROOT_PASSWORD || "password",
   });

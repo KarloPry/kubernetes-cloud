@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: db-cloud-k8s
 spec:
   selector:
     matchLabels:
