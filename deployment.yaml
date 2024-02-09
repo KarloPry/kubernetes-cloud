@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-cloud-deployment
+  namespace: db-cloud-k8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-cloud-k8s
+  template:
+    metadata:
+      labels:
+        app: db-cloud-k8s
+    spec:
+      containers:
+        - name: db-cloud
+          image: localhost:5000/db-cloud:14
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
