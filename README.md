@@ -6,7 +6,6 @@ minikube start --insecure-registry "10.0.0.0/24"
 minikube addons enable registry
 ```
 Creamos el namespace db-cloud-k8s para delimitar lógicamente el entorno dónde se ejecuta nuestra solución
-
 ```bash
 kubectl create namespace db-cloud-k8s
 ```
@@ -23,6 +22,12 @@ metadata:
 type: kubernetes.io/basic-auth
 stringData:
   password: ccDfwasd332
+```
+
+Ahora, con este archivo, creamos la variable de entorno para ambos namespaces con nuestro archivo mysql-secret.yaml
+```bash
+kubectl create -f mysql-secret.yaml -n db-cloud-k8s
+kubectl create -f mysql-secret.yaml
 ```
 ## Deployment DB
 Creamos nuestro deployment que obtiene la imagen de Docker más reciente a través de nuestro deploymentMysql.yaml
@@ -100,20 +105,20 @@ docker push localhost:5000/db-cloud:14
 ## Deployment for API
 Creamos el deployment para la API en nuestro cluster, el namespace se aplica automáticamente.
 ```bash
-kubectl apply -f deployment.yaml
+kubectl apply -f deploymentAPI.yaml
 ```
 
 ## Service for API
 Creamos el servicio para la API en nuestro cluster, el namespace se aplica automáticamente.
 
 ```bash
-kubectl apply -f service.yaml
+kubectl apply -f serviceAPI.yaml
 ```
 ## Port forwarding
-Para exponer un puerto del contenedor al exterior, identificamos el deployment que esta corriendo nuestra API
+Para exponer un puerto del contenedor al exterior, identificamos el deployment que esta corriendo de nuestra API
 
 ```bash
-get pods -A
+kubectl get pods -A
 ```
 
 Ahora, identificando el deployment db-cloud-deployment-[ID_DEPLOY]
