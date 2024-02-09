@@ -124,5 +124,6 @@ kubectl port-forward db-cloud-deployment-[ID_DEPLOY] 8080:3000 -n db-cloud-k8s
 # Probar
 Ahora, para probar nuesta aplicación, utilizamos el siguiente comando
 ```bash
-curl 127.0.0.1:8080 ```
+curl 127.0.0.1:8080
+```
 Cada vez que llamemos este endpoint, se creará un registro nuevo en Test.
